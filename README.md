@@ -21,7 +21,7 @@ The `nativemessaging` module exposes 4 methods:
 
 * `send_message(message)` will send the given message to the browser.
 
-* `install(browsers, manifest_file)` takes a list of browsers to install the manifest and a manifest, to install the given manifest in the browser configuration. Supported browsers are 'chrome' and 'firefox'; the manifest must be the contents of a valid manifest file.
+* `install(browsers, manifest_filename)` takes a list of browsers to install the manifest and a manifest filename, to install the given manifest in the browser configuration. Supported browsers are 'chrome' and 'firefox'.
 
 #### Example
 Browser side:
@@ -53,15 +53,18 @@ while True:
 `nativemessaging-install` is a command line script to install a manifest in the browser configuration.
 
 ```
-usage: nativemessaging-install [-h] [--manifest MANIFEST]
-                               {chrome,firefox} [{chrome,firefox} ...]
+usage: nativemessaging-install [-h] [--version] [--manifest MANIFEST]
+                               BROWSER [BROWSER ...]
 
 positional arguments:
-  {chrome,firefox}
+  BROWSER              browser(s) for which the manifest will be installed,
+                       valid values are chrome or firefox.
 
 options:
   -h, --help           show this help message and exit
-  --manifest MANIFEST
+  --version            show program's version number and exit
+  --manifest MANIFEST  path to the manifest file to install (default: native-
+                       manifest.json)
 ```
 
 #### Manifest file
