@@ -1,0 +1,8 @@
+{
+    "name": "test",
+    "description": "nativemessaging-ng test file",
+    "path": "test.py",
+    "type": "stdio",
+    "allowed_extensions": ["extension@id"],
+    "allowed_origins": ["chrome-extension://extension-id"]
+}
