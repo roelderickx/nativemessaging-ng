@@ -9,6 +9,6 @@ accompany any distribution of this code.
 
 __author__ = "Rayquaza01, Roel Derickx"
 __program__ = "nativemessaging-ng"
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 __license__ = "MPL 2.0 License"
 
