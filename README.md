@@ -12,14 +12,16 @@ A Python package for interfacing with Native Messaging in WebExtensions. Based o
 ## Usage
 
 ### Methods
-The `nativemessaging` module exposes 3 methods:
+The `nativemessaging` module exposes 4 methods:
+
+* `log_browser_console(message)` will add the given message to the browser log (accessible via ctrl-shift-J)
 
 * `get_message()` will poll for a message from the browser.
   If [runtime.connectNative](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connectNative) is used, `get_message()` must be called repeatedly in a loop to poll for messages; if [runtime.sendNativeMessage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendNativeMessage) is used, `get_message()` only needs to be called once.
 
-* `send_message( message )` will send the given message to the browser.
+* `send_message(message)` will send the given message to the browser.
 
-* `install( browsers, manifest_file )` takes a list of browsers to install the manifest and a manifest, to install the given manifest in the browser configuration. Supported browsers are 'chrome' and 'firefox'; the manifest must be the contents of a valid manifest file.
+* `install(browsers, manifest_file)` takes a list of browsers to install the manifest and a manifest, to install the given manifest in the browser configuration. Supported browsers are 'chrome' and 'firefox'; the manifest must be the contents of a valid manifest file.
 
 #### Example
 Browser side:
