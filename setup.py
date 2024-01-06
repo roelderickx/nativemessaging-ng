@@ -4,14 +4,14 @@ from setuptools import setup
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setup(name="nativemessaging",
+setup(name="nativemessaging-ng",
       version="1.0.1",
       description="A package with basic native messaging apis for webextensions",
       long_description=long_description,
       long_description_content_type="text/markdown",
-      url="https://github.com/Rayquaza01/nativemessaging",
-      author="Rayquaza01",
-      author_email="rayquaza01@outlook.com",
+      url="https://github.com/roelderickx/nativemessaging-ng",
+      author="Rayquaza01, roelderickx",
+      author_email="nativemessaging-ng.pypi@derickx.be",
       license="MPL 2.0",
       packages=["nativemessaging"],
       entry_points={

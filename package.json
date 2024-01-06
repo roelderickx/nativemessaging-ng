@@ -1,5 +1,5 @@
 {
-    "name": "nativemessaging",
+    "name": "nativemessaging-ng",
     "version": "1.0.1",
     "description": "A package with basic native messaging apis for webextensions",
     "main": "index.json",
@@ -10,12 +10,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Rayquaza01/nativemessaging.git"
+        "url": "git+https://github.com/roelderickx/nativemessaging-ng.git"
     },
-    "author": "Rayquaza01",
-    "license": "MIT",
+    "author": "Rayquaza01, roelderickx",
+    "license": "MPL",
     "bugs": {
-        "url": "https://github.com/Rayquaza01/nativemessaging/issues"
+        "url": "https://github.com/roelderickx/nativemessaging-ng/issues"
     },
-    "homepage": "https://github.com/Rayquaza01/nativemessaging#readme"
+    "homepage": "https://github.com/roelderickx/nativemessaging-ng#readme"
 }
