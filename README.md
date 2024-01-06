@@ -12,7 +12,7 @@ A Python package for interfacing with Native Messaging in WebExtensions. Based o
 ## Usage
 
 ### Methods
-The `nativemessaging` module exposes 4 methods:
+The `nativemessaging` module exposes following methods:
 
 * `log_browser_console(message)` will add the given message to the browser log (accessible via ctrl-shift-J)
 
@@ -22,6 +22,8 @@ The `nativemessaging` module exposes 4 methods:
 * `send_message(message)` will send the given message to the browser.
 
 * `install(browsers, manifest_filename)` takes a list of browsers to install the manifest and a manifest filename, to install the given manifest in the browser configuration. Supported browsers are 'chrome' and 'firefox'.
+
+* `is_installed(application_name)` returns the list of browsers for which the manifest of application_name is installed.
 
 #### Example
 Browser side:
