@@ -16,10 +16,9 @@ The `nativemessaging` module exposes following methods:
 
 * `log_browser_console(message)` adds the given message to the browser log (accessible via ctrl-shift-J)
 
-* `get_message_raw()` polls for a message from the browser.
-  If [runtime.connectNative](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connectNative) is used, `get_message()` must be called repeatedly in a loop to poll for messages; if [runtime.sendNativeMessage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendNativeMessage) is used, `get_message()` only needs to be called once.
+* `get_message_raw()` polls for a message from the browser and returns the result as string. If [runtime.connectNative](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connectNative) is used, `get_message()` must be called repeatedly in a loop to poll for messages; if [runtime.sendNativeMessage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendNativeMessage) is used, `get_message()` only needs to be called once.
 
-* `send_message_raw(message)` sends the given message to the browser.
+* `send_message_raw(message)` sends the given string message to the browser.
 
 * `get_message()` polls for a message from the browser and returns the message as a json structure.
 

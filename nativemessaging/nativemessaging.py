@@ -4,7 +4,7 @@ import json
 import sys
 import struct
 
-def log_browser_console(message):
+def log_browser_console(message: str):
     '''
     Log a message in the browser console
     '''
@@ -12,7 +12,7 @@ def log_browser_console(message):
 
 
 # from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging
-def get_message_raw():
+def get_message_raw() -> str:
     '''
     Receive a native message from the browser
     '''
@@ -24,7 +24,7 @@ def get_message_raw():
     return message
 
 
-def send_message_raw(message):
+def send_message_raw(message: str):
     '''
     Send a native message to the browser
     '''
@@ -36,7 +36,7 @@ def send_message_raw(message):
 
 
 # from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging
-def get_message():
+def get_message() -> dict:
     '''
     Receive a native message from the browser and parse it as a json structure
     '''
@@ -46,7 +46,7 @@ def get_message():
         return None
 
 
-def send_message(json_message):
+def send_message(json_message: dict):
     '''
     Send a native message to the browser
     '''
