@@ -61,17 +61,22 @@ while True:
 
 ```
 usage: nativemessaging-install [-h] [--version] [--manifest MANIFEST]
-                               BROWSER [BROWSER ...]
+                               [--appname NAME]
+                               {install,verify,uninstall} BROWSER
+                               [BROWSER ...]
 
 positional arguments:
-  BROWSER              browser(s) for which the manifest will be installed,
-                       valid values are chrome or firefox.
+  {install,verify,uninstall}
+                        action to take, can be install, verify or uninstall
+  BROWSER               browser(s) for which the manifest will be installed,
+                        valid values are chrome or firefox.
 
 options:
-  -h, --help           show this help message and exit
-  --version            show program's version number and exit
-  --manifest MANIFEST  path to the manifest file to install (default: native-
-                       manifest.json)
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --manifest MANIFEST   path to the manifest file to install (default: native-
+                        manifest.json)
+  --appname NAME        application name to be verified or uninstalled
 ```
 
 #### Manifest file
