@@ -51,7 +51,7 @@ def read_reg_key(path, logger):
         value, regtype = winreg.QueryValueEx(registry_key, "")
         winreg.CloseKey(registry_key)
 
-        logger.info("Registry value at key at HKEY_CURRENT_USER\\%s is %s" % (path, value))
+        logger.info("Registry value at HKEY_CURRENT_USER\\%s is %s" % (path, value))
     except WindowsError:
         logger.error("Could not read registry key %s" % path)
         raise
@@ -67,6 +67,18 @@ def create_reg_key(path, value, logger):
         logger.info("Created registry key at HKEY_CURRENT_USER\\%s" % path)
     except WindowsError:
         logger.error("Could not write registry key %s" % path)
+        raise
+
+
+def delete_reg_key(path, logger):
+    try:
+        registry_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, path, 0, winreg.KEY_ALL_ACCESS)
+        winreg.DeleteValue(registry_key, "")
+        winreg.CloseKey(registry_key)
+
+        logger.info("Deleted registry value at HKEY_CURRENT_USER\\%s" % path)
+    except WindowsError:
+        logger.error("Could not delete registry key %s" % path)
         raise
 
 
@@ -133,7 +145,7 @@ def is_installed_windows(application_name, logger):
     browsers = []
 
     for browser in browser_info.keys():
-        manifest_file = read_reg_key(browser[registry], logger)
+        manifest_file = read_reg_key(browser["registry"], logger)
         if os.path.exists(manifest_file):
             browsers.append(browser)
 
@@ -167,20 +179,62 @@ def is_installed(application_name):
         return [ ]
 
 
+def uninstall_windows(browsers, application_name, logger):
+    # delete registry key on windows
+    for browser in browsers:
+        manifest_file = read_reg_key(browser_info[browser]["registry"], logger)
+        '''
+        TODO: check if we wrote the batch file, otherwise do not delete
+        try:
+            manifest_contents = read_file(manifest_filename)
+            manifest = json.loads(manifest_contents)
+            if manifest['path'].endswith(".bat"):
+                os.remove(manifest['path'])
+        except:
+            pass
+        '''
+        os.remove(manifest_file)
+        delete_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
+
+
+def uninstall_unix(browsers, application_name, logger):
+    for browser in browsers:
+        manifest_path = browser_info[browser][sys.platform]
+        manifest_file = os.path.join(manifest_path, application_name + ".json")
+        os.remove(manifest_file)
+
+
+def uninstall(browsers, application_name):
+    '''
+    Uninstalls the manifest file from browsers
+    '''
+    logger = logging.getLogger(__program__)
+
+    if sys.platform == "win32":
+        uninstall_windows(browsers, application_name, logger)
+    elif sys.platform in ["linux", "darwin"]:
+        uninstall_unix(browsers, application_name, logger)
+
+
 def parse_commandline(logger):
     parser = argparse.ArgumentParser(prog="nativemessaging-install")
     parser.add_argument("--version", action="version",
                         version="%s %s" % (__program__, __version__))
+    parser.add_argument("action", choices=[ "install", "verify", "uninstall" ],
+                        help="action to take, can be install, verify or uninstall")
     parser.add_argument("--manifest", dest="manifest", type=str, metavar="MANIFEST",
                         default="native-manifest.json",
                         help="path to the manifest file to install (default: %(default)s)")
-    parser.add_argument("--verify", dest="verify", type=str, metavar="NAME",
-                        help="tests if application name is installed in all given browsers")
+    parser.add_argument("--appname", dest="appname", type=str, metavar="NAME",
+                        help="application name to be verified or uninstalled")
     parser.add_argument("browsers", metavar="BROWSER", choices=[ "chrome", "firefox" ], nargs="+",
                         help="browser(s) for which the manifest will be installed, " +
                              "valid values are chrome or firefox.")
 
     params = parser.parse_args()
+    
+    if params.action in [ "verify", "uninstall" ] and not params.appname:
+        parser.error("Application name is required when action is verify or uninstall")
 
     return params
 
@@ -192,18 +246,20 @@ def main():
     
     params = parse_commandline(logger)
 
-    if params.verify:
-        installed_browsers = is_installed(params.verify)
+    if params.action == "verify":
+        installed_browsers = is_installed(params.appname)
         everywhere_installed = True
         for browser in params.browsers:
             if browser not in installed_browsers:
                 everywhere_installed = False
 
         if everywhere_installed:
-            logger.info("%s is installed in %s" % (params.verify, ", ".join(params.browsers)))
+            logger.info("%s is installed in %s" % (params.appname, ", ".join(params.browsers)))
         else:
             logger.info("%s is not installed in %s" % \
-                                    (params.verify, ", ".join(params.browsers)))
+                                    (params.appname, ", ".join(params.browsers)))
+    elif params.action == "uninstall":
+        uninstall(params.browsers, params.appname)
     elif not os.path.isfile(params.manifest):
         logger.error("Manifest file %s not found." % params.manifest)
     else:

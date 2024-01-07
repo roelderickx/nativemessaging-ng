@@ -28,6 +28,8 @@ The `nativemessaging` module exposes following methods:
 
 * `is_installed(application_name)` returns the list of browsers for which the manifest of application_name is installed.
 
+* `uninstall(browsers, application_name)` uninstalls the manifest of application_name for all given browsers.
+
 #### Example
 Browser side:
 ```javascript
