@@ -12,24 +12,42 @@ def log_browser_console(message):
 
 
 # from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging
-def get_message():
+def get_message_raw():
     '''
     Receive a native message from the browser
     '''
     raw_length = sys.stdin.buffer.read(4)
     if len(raw_length) == 0:
-        raise Exception("Message is empty")
+        return None
     message_length = struct.unpack("@I", raw_length)[0]
     message = sys.stdin.buffer.read(message_length).decode("utf-8")
-    return json.loads(message)
+    return message
 
 
-def send_message(message):
+def send_message_raw(message):
     '''
     Send a native message to the browser
     '''
-    encoded_content = json.dumps(message).encode("utf-8")
+    encoded_content = message.encode("utf-8")
     encoded_length = struct.pack("@I", len(encoded_content))
     sys.stdout.buffer.write(encoded_length)
     sys.stdout.buffer.write(encoded_content)
     sys.stdout.buffer.flush()
+
+
+# from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging
+def get_message():
+    '''
+    Receive a native message from the browser and parse it as a json structure
+    '''
+    if message:
+        return json.loads(message)
+    else:
+        return None
+
+
+def send_message(json_message):
+    '''
+    Send a native message to the browser
+    '''
+    send_message_raw(json.dumps(json_message))
