@@ -239,7 +239,7 @@ def parse_commandline(logger):
     parser.add_argument("browsers", metavar="BROWSER",
                         choices=[ "chrome", "chromium", "firefox" ], nargs="+",
                         help="browser(s) for which the manifest will be installed, " +
-                             "valid values are chrome or firefox.")
+                             "valid values are chrome, chromium or firefox.")
 
     params = parser.parse_args()
     
