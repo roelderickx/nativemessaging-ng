@@ -18,6 +18,11 @@ browser_info = {
         "linux": os.path.join(unix_home_dir, ".config/google-chrome/NativeMessagingHosts"),
         "darwin": os.path.join(unix_home_dir, "Library/Application Support/Google/Chrome/NativeMessagingHosts")
     },
+    "chromium": {
+        "registry": "Software\\Google\\Chrome\\NativeMessagingHosts",
+        "linux": os.path.join(unix_home_dir, ".config/chromium/NativeMessagingHosts"),
+        "darwin": os.path.join(unix_home_dir, "Library/Application Support/Chromium/NativeMessagingHosts")
+    },
     "firefox": {
         "registry": "Software\\Mozilla\\NativeMessagingHosts",
         "linux": os.path.join(unix_home_dir, ".mozilla/native-messaging-hosts"),
@@ -147,7 +152,8 @@ def is_installed_windows(application_name, logger):
     browsers = []
 
     for browser in browser_info.keys():
-        manifest_file = read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
+        manifest_file = \
+            read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
         if manifest_file and os.path.exists(manifest_file):
             browsers.append(browser)
 
@@ -184,7 +190,8 @@ def is_installed(application_name):
 def uninstall_windows(browsers, application_name, logger):
     # delete registry key on windows
     for browser in browsers:
-        manifest_file = read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
+        manifest_file = \
+            read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
         '''
         TODO: check if we wrote the batch file, otherwise do not delete
         try:
@@ -229,7 +236,8 @@ def parse_commandline(logger):
                         help="path to the manifest file to install (default: %(default)s)")
     parser.add_argument("--appname", dest="appname", type=str, metavar="NAME",
                         help="application name to be verified or uninstalled")
-    parser.add_argument("browsers", metavar="BROWSER", choices=[ "chrome", "firefox" ], nargs="+",
+    parser.add_argument("browsers", metavar="BROWSER",
+                        choices=[ "chrome", "chromium", "firefox" ], nargs="+",
                         help="browser(s) for which the manifest will be installed, " +
                              "valid values are chrome or firefox.")
 
