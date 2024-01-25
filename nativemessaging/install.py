@@ -52,9 +52,11 @@ def read_reg_key(path, logger):
         winreg.CloseKey(registry_key)
 
         logger.info("Registry value at HKEY_CURRENT_USER\\%s is %s" % (path, value))
+        
+        return value
     except WindowsError:
         logger.error("Could not read registry key %s" % path)
-        raise
+        return None
 
 
 def create_reg_key(path, value, logger):
@@ -145,11 +147,11 @@ def is_installed_windows(application_name, logger):
     browsers = []
 
     for browser in browser_info.keys():
-        manifest_file = read_reg_key(browser["registry"], logger)
-        if os.path.exists(manifest_file):
+        manifest_file = read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
+        if manifest_file and os.path.exists(manifest_file):
             browsers.append(browser)
 
-    return []
+    return browsers
 
 
 def is_installed_unix(application_name, logger):
@@ -182,7 +184,7 @@ def is_installed(application_name):
 def uninstall_windows(browsers, application_name, logger):
     # delete registry key on windows
     for browser in browsers:
-        manifest_file = read_reg_key(browser_info[browser]["registry"], logger)
+        manifest_file = read_reg_key(os.path.join(browser_info[browser]["registry"], application_name), logger)
         '''
         TODO: check if we wrote the batch file, otherwise do not delete
         try:
