@@ -40,6 +40,7 @@ def get_message() -> dict:
     '''
     Receive a native message from the browser and parse it as a json structure
     '''
+    message = get_message_raw()
     if message:
         return json.loads(message)
     else:
