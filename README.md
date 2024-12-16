@@ -1,5 +1,5 @@
 # nativemessaging-ng
-A Python package for interfacing with Native Messaging in WebExtensions. Based on the apparently unmaintained version of [Rayquaza01](https://github.com/Rayquaza01/nativemessaging), which is in turn based on [Native Messaging on MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging#App_side) and [native-messaging on mdn/webextension-examples](https://github.com/mdn/webextensions-examples/tree/master/native-messaging).
+A Python package for interfacing with Native Messaging in WebExtensions. Based on the apparently unmaintained version of Rayquaza01, which is in turn based on [Native Messaging on MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging#App_side) and [native-messaging on mdn/webextension-examples](https://github.com/mdn/webextensions-examples/tree/master/native-messaging).
 
 ## Native Messaging documentation
 * [Native Messaging on MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging)
@@ -56,20 +56,19 @@ while True:
         nativemessaging.send_message("world")
 ```
 
-### nativemessaging-install
-`nativemessaging-install` is a command line script to install a manifest in the browser configuration.
+### nativemessaging-ng
+`nativemessaging-ng` is a command line script to install a manifest in the browser configuration.
 
 ```
-usage: nativemessaging-install [-h] [--version] [--manifest MANIFEST]
-                               [--appname NAME]
-                               {install,verify,uninstall} BROWSER
-                               [BROWSER ...]
+usage: nativemessaging-ng [-h] [--version] [--manifest MANIFEST]
+                          [--appname NAME]
+                          {install,verify,uninstall} BROWSER [BROWSER ...]
 
 positional arguments:
   {install,verify,uninstall}
                         action to take, can be install, verify or uninstall
   BROWSER               browser(s) for which the manifest will be installed,
-                        valid values are chrome or firefox.
+                        valid values are chrome, chromium or firefox.
 
 options:
   -h, --help            show this help message and exit
@@ -102,8 +101,8 @@ The format of the manifest file must be similar to the native manifest format fo
   - A registry key is created at `HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\<application_name>` or `HKEY_CURRENT_USER\Software\Mozilla\NativeMessagingHosts\<application_name>`
 
 * Linux:
-  - `~/.config/google-chrome/NativeMessagingHosts/<application_name>.json` or `~/.mozilla/native-messaging-hosts/<application_name>.json` will be created
+  - `<application_name>.json` will be installed in `~/.config/google-chrome/NativeMessagingHosts/`, `.config/chromium/NativeMessagingHosts/` or `~/.mozilla/native-messaging-hosts/` will be created
 
 * OS/X:
-  - `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/<application_name>.json` or `~/Library/Application Support/Mozilla/NativeMessagingHosts/<application_name>.json` will be created
+  - `<application_name>.json` will be installed in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/`, `~/Library/Application Support/Chromium/NativeMessagingHosts/` or `~/Library/Application Support/Mozilla/NativeMessagingHosts/` will be created
 

@@ -226,7 +226,7 @@ def uninstall(browsers, application_name):
 
 
 def parse_commandline(logger):
-    parser = argparse.ArgumentParser(prog="nativemessaging-install")
+    parser = argparse.ArgumentParser(prog="nativemessaging-ng")
     parser.add_argument("--version", action="version",
                         version="%s %s" % (__program__, __version__))
     parser.add_argument("action", choices=[ "install", "verify", "uninstall" ],
