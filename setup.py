@@ -21,7 +21,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     python_requires='>=3.0',
     entry_points={
-        "console_scripts": ["nativemessaging-install = nativemessaging.install:main"]
+        "console_scripts": ["nativemessaging-ng = nativemessaging.install:main"]
     },
     classifiers=[
         "Programming Language :: Python :: 3",
