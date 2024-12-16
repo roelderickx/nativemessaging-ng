@@ -101,8 +101,8 @@ The format of the manifest file must be similar to the native manifest format fo
   - A registry key is created at `HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\<application_name>` or `HKEY_CURRENT_USER\Software\Mozilla\NativeMessagingHosts\<application_name>`
 
 * Linux:
-  - `<application_name>.json` will be installed in `~/.config/google-chrome/NativeMessagingHosts/`, `.config/chromium/NativeMessagingHosts/` or `~/.mozilla/native-messaging-hosts/` will be created
+  - `<application_name>.json` will be installed in `~/.config/google-chrome/NativeMessagingHosts/`, `.config/chromium/NativeMessagingHosts/` or `~/.mozilla/native-messaging-hosts/`
 
 * OS/X:
-  - `<application_name>.json` will be installed in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/`, `~/Library/Application Support/Chromium/NativeMessagingHosts/` or `~/Library/Application Support/Mozilla/NativeMessagingHosts/` will be created
+  - `<application_name>.json` will be installed in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/`, `~/Library/Application Support/Chromium/NativeMessagingHosts/` or `~/Library/Application Support/Mozilla/NativeMessagingHosts/`
 
