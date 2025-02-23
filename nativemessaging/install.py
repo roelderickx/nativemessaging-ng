@@ -43,10 +43,11 @@ def write_file(filename, contents):
 def write_manifest(browser, path, manifest, logger):
     if browser == "firefox":
         manifest.pop("allowed_origins", None)
-    elif browser == "chrome":
+        write_file(path, json.dumps(manifest))
+    elif browser in ("chrome", "chromium"):
         manifest.pop("allowed_extensions", None)
+        write_file(path, json.dumps(manifest, ensure_ascii=False))
 
-    write_file(path, json.dumps(manifest))
     logger.debug("Saved manifest file to %s" % path)
 
 
